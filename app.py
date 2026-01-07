@@ -1,3 +1,5 @@
+import os
+
 def calculate_average_cost(bookings):
     total = 0
     for booking in bookings:
@@ -17,26 +19,31 @@ def assign_category(avg_cost):
 
 
 def main():
-    bookings = []
+    bookings = [
+        {
+            "model": os.getenv("MODEL1"),
+            "rental_type": os.getenv("TYPE1"),
+            "days": int(os.getenv("DAYS1")),
+            "cost_per_day": float(os.getenv("COST1"))
+        },
+        {
+            "model": os.getenv("MODEL2"),
+            "rental_type": os.getenv("TYPE2"),
+            "days": int(os.getenv("DAYS2")),
+            "cost_per_day": float(os.getenv("COST2"))
+        },
+        {
+            "model": os.getenv("MODEL3"),
+            "rental_type": os.getenv("TYPE3"),
+            "days": int(os.getenv("DAYS3")),
+            "cost_per_day": float(os.getenv("COST3"))
+        }
+    ]
 
-    for i in range(3):
-        print(f"\nBooking {i+1}")
-        model = input("Car Model: ")
-        rental_type = input("Rental Type: ")
-        days = int(input("Days: "))
-        cost = float(input("Cost per Day: "))
+    avg_cost = calculate_average_cost(bookings)
+    category = assign_category(avg_cost)
 
-        bookings.append({
-            "model": model,
-            "rental_type": rental_type,
-            "days": days,
-            "cost_per_day": cost
-        })
-
-    avg = calculate_average_cost(bookings)
-    category = assign_category(avg)
-
-    print("\nAverage Rental Cost:", avg)
+    print("Average Rental Cost:", avg_cost)
     print("Category:", category)
 
 
